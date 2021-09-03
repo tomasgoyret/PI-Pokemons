@@ -13,6 +13,12 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    tipo: {
+      type: DataTypes.ARRAY(DataTypes.STRING)
+    },
+    image:{
+      type: DataTypes.STRING
+    },
     hp: {
       type: DataTypes.INTEGER
     },
