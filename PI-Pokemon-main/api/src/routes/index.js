@@ -27,39 +27,66 @@ router.get('/pokemons', async (req, res, next) => { //acá va el caso en que agr
         })
     }
 
-    const pokesApi = await axios.get("https://pokeapi.co/api/v2/pokemon")
+    const pokesApi = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=20")
     let datosPokesApi = pokesApi.data.results
-   
-    if (datosPokesApi) {
-         datosPokesApi = await datosPokesApi.map(async (p) => {
+    let pokeData = []
+        for(p of datosPokesApi) {
             let subReq = p.url
             let subReqPoke = await axios.get(`${subReq}`)
-            let resultado =  { 
+            pokeData.push({ 
                 name: subReqPoke.data.name,
                 tipo:subReqPoke.data.types.map(e=>e.type.name),
                 image:subReqPoke.data.sprites.front_default 
-            }
-            
-            return resultado
-        })
+            })
 
     }
-    console.log(datosPokesApi)
-    res.send(pokesBD.concat(datosPokesApi))
+    Promise.all([pokesBD,pokeData])
+        .then((results => {
+            let [pokesBDresults,datosPokesApiResults] = results;
+            let resp = pokesBDresults.concat(datosPokesApiResults);
+            res.json(resp)
+        }))
+        .catch ((error) => next(error))
 
-    // Promise.all([pokesBD,datosPokesApi])
+        //Opcion 2
+
+    // const pokesApi = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=20")
+    // let datosPokesApi = pokesApi.data.results
+    // let pokeData = Promise.all(
+    //         datosPokesApi.map( async(p)=> {
+    //         let subReq = p.url
+    //         let subReqPoke = await axios.get(`${subReq}`)
+    //         let resultado = { 
+    //             name: subReqPoke.data.name,
+    //             tipo:subReqPoke.data.types.map(e=>e.type.name),
+    //             image:subReqPoke.data.sprites.front_default 
+    //         }
+    //         return await resultado;
+    //     })
+    // )
+    // Promise.all([pokesBD,pokeData])
     //     .then((results => {
     //         let [pokesBDresults,datosPokesApiResults] = results;
     //         let resp = pokesBDresults.concat(datosPokesApiResults);
     //         res.json(resp)
     //     }))
     //     .catch ((error) => next(error))
+
 })
 
 router.get("/pokemons/:id", async (req, res) => {
     const { id } = req.params
     try {
         const pokeApi = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
+        // let respuesta = {
+        //     name : pokeApi.data.name,
+        //     hp = pokeApi.data.name,
+        //     attack = pokeApi.data.name,
+        //     defense = pokeApi.data.name,
+        //     speed = pokeApi.data.name,
+        //     weight = pokeApi.data.name,
+        //     height = pokeApi.data.name,
+        // }
         return res.json(pokeApi.data)
     } catch {
         const pokeBD = await Pokemon.findOne({ where: { ID: id }, include: Tipo });
