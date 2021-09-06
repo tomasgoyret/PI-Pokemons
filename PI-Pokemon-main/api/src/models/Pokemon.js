@@ -12,6 +12,7 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique:true,
     },
     tipo: {
       type: DataTypes.ARRAY(DataTypes.STRING)
