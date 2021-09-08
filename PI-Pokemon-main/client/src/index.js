@@ -3,10 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {Pokemons} from './components/Pokemons.jsx';
+import {Route } from 'react-router';
+import {BrowserRouter} from 'react-router-dom';
+import store from './store/store';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
+  <React.StrictMode store={store}>
+    <BrowserRouter>
+    <Route exact path="/" component={App}></Route>
+    <Route path="/pokemons" component={Pokemons}></Route>
+  </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
