@@ -18,7 +18,7 @@ router.get('/pokemons', async (req, res, next) => {
     let name = req.query.name
     if (name) {
         try {
-            const pokeBD = await Pokemon.findOne({ where: { name: name } })
+            const pokeBD = await Pokemon.findOne({ where: { name: name }, include : Tipo })
             if (pokeBD != null) {
                 const { name, hp, attack, defense, speed, weight, height, image, tipo } = pokeBD
                 const respuesta = {
@@ -58,13 +58,19 @@ router.get('/pokemons', async (req, res, next) => {
     }
     //si no envian nada por quiery traigo todos los Pokemons
     try {
-        let pokesBD = await Pokemon.findAll()
+        let pokesBD = await Pokemon.findAll( {include :Tipo } //[{
+        //     model: Tipo,
+        //     through: {
+        //         attributes: ['name']
+        //     }
+        // }]}
+        )
         if (pokesBD) {
             pokesBD = pokesBD.map(p => {
                 return {
                     id: p.id,
                     name: p.name,
-                    tipo: p.tipo,
+                    tipo: p.dataValues.tipos.map((p)=>p.dataValues.name),
                     image: p.image
                 }
             })
@@ -114,7 +120,8 @@ router.get("/pokemons/:id", async (req, res, next) => {
     if (id.length > 4) {
         try {
             const pokeBD = await Pokemon.findOne({ where: { id: id }, include: Tipo });
-            const { name, hp, attack, defense, speed, weight, height, image, tipo } = pokeBD
+            console.log(pokeBD)
+            const { name, hp, attack, defense, speed, weight, height, image } = pokeBD
             const respuesta = {
                 name,
                 hp,
@@ -124,7 +131,7 @@ router.get("/pokemons/:id", async (req, res, next) => {
                 weight,
                 height,
                 image,
-                tipo
+                tipo:pokeBD.dataValues.tipos.map((p)=>p.dataValues.name),
             }
             return res.json(respuesta)
         } catch (error) {
@@ -154,6 +161,13 @@ router.get("/pokemons/:id", async (req, res, next) => {
 
 router.post("/pokemons", async (req, res, next) => {
     const { name, hp, attack, defense, speed, weight, height, tipo, image } = req.body
+    // const existe = await Pokemon.findOne({
+    //     where: {
+    //         name : name,
+    //     }
+    // })
+    // if(existe) return res.json("creado")
+
     try {
         const nuevoPoke = await Pokemon.create({
             id: uuidv4(),
@@ -164,37 +178,52 @@ router.post("/pokemons", async (req, res, next) => {
             speed,
             weight,
             height,
-            tipo,
             image
         })
+
+        // const tipoBD = await Tipo.findAll({
+        //     where: {
+        //         name : tipo
+        //     }
+        // })
+        // console.log(tipoBD)
+        // for(let i=0; i<tipoBD.length; i++){
+        //     nuevoPoke.addTipo(tipoBD[i].dataValues.id);
+        // }
+
+        await nuevoPoke.addTipo(tipo)
         return res.send(nuevoPoke)
     } catch (error) {
         next(error)
     }
 })
 
-router.get("/types", async (req, res) => {
-    const llenado = await Tipo.count()
-    if (llenado === 0) {
-        const tipos = await axios.get(`https://pokeapi.co/api/v2/type`)
-        let tiposApi = tipos.data.results
-        if (tiposApi) {
-            tiposApi = tiposApi.map(t => {
-                return {
-                    name: t.name
-                }
+router.get("/types", async (req, res, next) => {
+    try{
+        const llenado = await Tipo.count()
+        if (llenado === 0) {
+            const tipos = await axios.get(`https://pokeapi.co/api/v2/type`)
+            let tiposApi = tipos.data.results
+            if (tiposApi) {
+                tiposApi = tiposApi.map(t => {
+                    return {
+                        name: t.name
+                    }
+                })
+            }
+            await Tipo.bulkCreate(tiposApi)
+            res.send(tiposApi.map(p => p.name))
+            console.log("Primero instancia, copia en BD")
+        } else {
+            const tiposBD = await Tipo.findAll()
+            let tiposBD2 = tiposBD.map((e) => {
+                return e.name
             })
+            res.send(tiposBD2)
+            console.log("Segunda instancia,no Copia en BD")
         }
-        await Tipo.bulkCreate(tiposApi)
-        res.send(tiposApi.map(p => p.name))
-        console.log("Primero instancia, copia en BD")
-    } else {
-        const tiposBD = await Tipo.findAll()
-        let tiposBD2 = tiposBD.map((e) => {
-            return e.name
-        })
-        res.send(tiposBD2)
-        console.log("Segunda instancia,no Copia en BD")
+    } catch (error) {
+        next(error)
     }
 })
 module.exports = router;

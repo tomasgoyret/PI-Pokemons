@@ -4,7 +4,7 @@ import RutaInicial from './components/LandingPage.jsx';
 import {Pokemons} from './components/Home.jsx';
 import {BrowserRouter , Route} from 'react-router-dom';
 import {useDispatch } from 'react-redux';
-import {getPokemons} from './store/actions/actions';
+import {getPokemons, getTypes} from './store/actions/actions';
 import {PokeDetails} from './components/PokeDetails.jsx';
 import { NavBar } from './components/Navbar';
 import { NewPoke } from './components/NewPoke';
@@ -12,7 +12,8 @@ import { NewPoke } from './components/NewPoke';
 function App() {
   const dispatch = useDispatch();
   useEffect(()=>{
-      dispatch(getPokemons())
+    dispatch(getPokemons())
+    dispatch(getTypes())
   },[])
 
   return (

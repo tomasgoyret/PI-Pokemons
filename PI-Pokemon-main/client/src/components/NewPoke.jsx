@@ -2,7 +2,8 @@ import React from "react";
 
 export function NewPoke() {
 
-
+// arm<ar el handle change con esta 
+// hanbdle submit con prevent Default
 
     return <div>
         <h1> Nuevo Pokemon</h1>

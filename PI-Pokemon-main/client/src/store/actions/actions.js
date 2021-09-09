@@ -4,6 +4,7 @@ export const LOADING =  'LOADING';
 export const GET_DETAILS = 'GET_DETAILS';
 export const ADD_POKEMON = 'ADD_POKEMON';
 export const GET_POKE_BYNAME = 'GET_POKE_BYNAME';
+export const GET_TYPES = 'GET_TYPES';
 
 export function loading () {
     return {
@@ -18,6 +19,18 @@ export function getPokemons() {
             .then((response)=>{
                 dispatch({
                     type : GET_POKES,
+                    payload: response.data
+                });
+            })
+    }
+}
+
+export function getTypes() {
+    return function(dispatch){
+        return axios.get("http://localhost:3001/types")
+            .then((response)=>{
+                dispatch({
+                    type : GET_TYPES,
                     payload: response.data
                 });
             })
