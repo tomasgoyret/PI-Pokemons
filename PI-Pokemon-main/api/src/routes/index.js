@@ -49,7 +49,7 @@ router.get('/pokemons', async (req, res, next) => {
                     }
                     return res.json(respuesta)
                 } catch (error) {
-                    next("Pokemon no encontrado, revisá el nombre")
+                    next(console.log("Pokemon no encontrado, revisá el nombre"))
                 }
             }
         } catch (error) {
@@ -85,7 +85,7 @@ router.get('/pokemons', async (req, res, next) => {
         }
         res.send(pokesBD.concat(pokeData))
         // // Opcion 2
-        // const pokesApi = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=2")
+        // const pokesApi = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=10")
         // let datosPokesApi = pokesApi.data.results
         // let pokeData = datosPokesApi.map(p => p.url)
         // let arregloFunciones = pokeData.map(url => {
@@ -102,7 +102,7 @@ router.get('/pokemons', async (req, res, next) => {
         //         image: p.data.sprites.front_default
         //     }
         // })
-        // res.send(response)
+        // res.send(pokesBD.concat(response))
     } catch (error) {
         next("Api no responde")
     }

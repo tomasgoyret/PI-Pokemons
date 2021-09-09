@@ -1,4 +1,5 @@
 import React from "react";
+import './styles.css/Paginacion.css'
 
 export function Paginacion({pokesPorPage, totalPokes, pagina}) {
     const numerosPag = [];
@@ -9,9 +10,7 @@ export function Paginacion({pokesPorPage, totalPokes, pagina}) {
     return <nav>
         <ul className="Paginacion">
              {numerosPag.map((number) =>{
-                 return <li key={number} className="itemPaginacion"> 
-                    <button onClick={()=> pagina(number)}> {number} </button>
-                 </li>
+                 return <button key={number} className="itemPaginacion" onClick={()=> pagina(number)}> {number} </button>
              })}   
         </ul>
     </nav>
