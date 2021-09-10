@@ -1,51 +1,98 @@
+import { useEffect } from "react";
 import { PokeCard } from "./PokeCard";
-import {useSelector } from "react-redux";
-// import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { Search } from "./Search";
 import { useState } from "react";
-//import { useEffect } from "react";
-import {Paginacion} from "./Paginacion";
-import { NavBar } from "./Navbar";
-//import { getPokemons } from "../store/actions/actions";
+import { Paginacion } from "./Paginacion";
+import { filterByCreated, filterByType, getPokemons, getTypes, sortByName } from "../store/actions/actions";
 
-export function Pokemons () {
-    // const [pokemons,setPokemons] = useState([])
-    // const [loading,setLoading] = useState(false)
 
-    const {pokemons , loading} = useSelector(state => state)
-    
+export function Pokemons() {
+
+    const { pokemons, loading, types } = useSelector(state => state)
     const [currentPage, setCurrentPage] = useState(1)
     const [pokesPorPage] = useState(3)
+    const[ordenado,setOrden] = useState("");
+    const dispatch = useDispatch();
 
-    // useEffect(()=>{
-    //     const traerPokes = async () => {
-    //         setLoading(true)
-    //         const res = await axios.get("http://localhost:3001/pokemons")
-    //         setPokemons(res.data)
-    //         setLoading(false)
-    //     }
-    //     traerPokes();
-    // },[])
 
-    // const dispatch = useDispatch();
-    // useEffect(()=>{
-    //     dispatch(getPokemons())
-    // },[])
+    useEffect(() => {
+        dispatch(getPokemons())
+        dispatch(getTypes())
+    }, [dispatch])
 
-    
+
 
     //Obtener los pokemones actuales
 
     const indexUltPoke = currentPage * pokesPorPage;
     const indexPrimerPoke = indexUltPoke - pokesPorPage;
-    const currentPoke = pokemons.slice(indexPrimerPoke,indexUltPoke);
+    const currentPoke = pokemons.slice(indexPrimerPoke, indexUltPoke);
 
     // Cambiar Página
 
     const pagina = (numeroPagina) => setCurrentPage(numeroPagina)
 
+    const handleOrderByName = (e) => {
+        e.preventDefault()
+        dispatch(sortByName(e.target.value))
+        setCurrentPage(1)
+        setOrden(`Ordenado ${e.target.value}`)
+    }
+    const handleFilterbyType = (e) => {
+        dispatch(filterByType(e.target.value))
+    }
+    const handleFilterbyCreated = (e) => {
+        dispatch(filterByCreated(e.target.value))
+    }
+
+
     return <div>
-        
+
+        <div className="Top">
+
+            <button>
+                <Link to="/pokemons/"> Inicio</Link>
+            </button>
+
+            <button>
+                <Link to="/pokemons/new/Poke"> Crear Pokemon</Link>
+            </button>
+
+            <select onChange={(e) => handleFilterbyType(e)}>
+                <option value="all">all</option>
+                {types.map(t => {
+                    return <option value={t}>{t}</option>
+                })}
+            </select>
+
+            <select onChange={(e) => handleFilterbyCreated(e)}>
+                <option value="all">all</option>
+                <option value="created">creado</option>
+                <option value="api">api</option>
+            </select>
+            <div>
+                Orden por nombre : 
+                 <select onChange={(e)=>handleOrderByName(e)} > {/* onChange={(e)=>handleOrderByName(e)} */}
+                    <option value="Asc">Ascendente</option>
+                    <option value="Desc">Descendente</option>
+                </select>
+
+            </div>
+            <div>
+                Orden por fuerza : 
+                <select>
+                    <option value="Asc">Más fuerte</option>
+                    <option value="Desc">Menos fuerte</option>
+                </select>
+
+            </div>
+
+            <Search />
+        </div>
+
         <PokeCard pokemons={currentPoke} loading={loading} />
         <Paginacion pokesPorPage={pokesPorPage} totalPokes={pokemons.length} pagina={pagina} />
-        </div>
+    </div>
 }

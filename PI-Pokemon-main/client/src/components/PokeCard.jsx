@@ -12,12 +12,12 @@ export function PokeCard({loading,pokemons}){
         return <div key={pokemon.id}>
             <p>
                 <Link to={`/pokemons/${pokemon.id}`}>
-                {pokemon.name} el id : {pokemon.id}
+                {pokemon.name}
                 </Link>
                 </p>
             <img src={pokemon.image} alt="imagen"/>
             {/* <p>{pokemon.tipo}</p> */}
-            <p>{pokemon.tipo.map((p)=> <li> {p} </li>)}</p>
+            <p>{pokemon.tipo.map((p)=> <li key={p}> {p} </li>)}</p>
             </div> }
             
     )}

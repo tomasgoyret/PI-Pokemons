@@ -14,9 +14,11 @@ module.exports = (sequelize) => {
       allowNull: false,
       unique:true,
     },
-    // tipo: {
-    //   type: DataTypes.ARRAY(DataTypes.STRING)
-    // },
+    creadoByMe: {
+     type: DataTypes.BOOLEAN,
+     allowNull: false,
+     defaultValue: true
+     },
     image:{
       type: DataTypes.STRING
     },

@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { getPokeByName } from "../store/actions/actions";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 
 export function Search() {
     const [busqueda, setBusqueda] = useState("")
     const dispatch = useDispatch()
+    const { pokemonSearched } = useSelector(state => state)
+   const history = useHistory();
 
 
     const handleChange = (event) => {
@@ -14,14 +17,13 @@ export function Search() {
     const handleSubmit = (event) => {
         event.preventDefault()
         dispatch((getPokeByName(busqueda)))
+        history.push(`/pokemons/${pokemonSearched.id}`)
     }
 
-    const { pokemonSearched } = useSelector(state => state)
 
 
     return (
-        <div className="Buscador">
-             <form onSubmit={(e)=>handleSubmit(e)} >   
+        <div className="Buscador">  
                 <input
                     autoComplete="off"
                     type="text"
@@ -31,10 +33,9 @@ export function Search() {
                 >
                 </input>
 
-                <button type="submit">BUSCAR</button>
-            </form>
+                <button onClick={(e)=>handleSubmit(e)} type="submit">BUSCAR</button>
             <div>
-                {pokemonSearched && <img src={`${pokemonSearched.image}`} />}
+                {pokemonSearched && <img src={`${pokemonSearched.image}`} alt="imagen"/>}
 
             </div>
         </div>)

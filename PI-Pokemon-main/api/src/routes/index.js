@@ -20,8 +20,9 @@ router.get('/pokemons', async (req, res, next) => {
         try {
             const pokeBD = await Pokemon.findOne({ where: { name: name }, include : Tipo })
             if (pokeBD != null) {
-                const { name, hp, attack, defense, speed, weight, height, image, tipo } = pokeBD
+                const { id, name, hp, attack, defense, speed, weight, height, image, tipo } = pokeBD
                 const respuesta = {
+                    id,
                     name,
                     hp,
                     attack,
@@ -37,6 +38,7 @@ router.get('/pokemons', async (req, res, next) => {
                 try {
                     const pokeApi = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
                     let respuesta = {
+                        id: pokeApi.data.id,
                         name: pokeApi.data.name,
                         hp: pokeApi.data.stats[0].base_stat,
                         attack: pokeApi.data.stats[1].base_stat,
@@ -71,7 +73,8 @@ router.get('/pokemons', async (req, res, next) => {
                     id: p.id,
                     name: p.name,
                     tipo: p.dataValues.tipos.map((p)=>p.dataValues.name),
-                    image: p.image
+                    image: p.image,
+                    creado: p.creadoByMe
                 }
             })
         }
@@ -135,7 +138,7 @@ router.get("/pokemons/:id", async (req, res, next) => {
             }
             return res.json(respuesta)
         } catch (error) {
-            next(error)
+            next("El id es incorrecto")
         }
     } else {
         try {
@@ -153,7 +156,7 @@ router.get("/pokemons/:id", async (req, res, next) => {
             }
             return res.json(respuesta)
         } catch (error) {
-            next(error)
+            next("El id es incorrecto")
         }
     }
 })

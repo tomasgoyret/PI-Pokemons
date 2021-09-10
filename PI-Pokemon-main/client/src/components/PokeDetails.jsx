@@ -7,7 +7,7 @@ export function PokeDetails({id}){
 
     useEffect(()=>{
         dispatch(getDetails(id))
-    },[])
+    },[dispatch,id])
     const {pokemonsDetails,loading} = useSelector(state => state)
     
     if(loading) {
