@@ -46,7 +46,7 @@ router.get('/pokemons', async (req, res, next) => {
                         speed: pokeApi.data.stats[5].base_stat,
                         weight: pokeApi.data.weight,
                         height: pokeApi.data.height,
-                        image: pokeApi.data.sprites.front_default,
+                        image: pokeApi.data.sprites.other.dream_world.front_default,
                         tipo: pokeApi.data.types.map(e => e.type.name),
                     }
                     return res.json(respuesta)
@@ -60,12 +60,7 @@ router.get('/pokemons', async (req, res, next) => {
     }
     //si no envian nada por quiery traigo todos los Pokemons
     try {
-        let pokesBD = await Pokemon.findAll( {include :Tipo } //[{
-        //     model: Tipo,
-        //     through: {
-        //         attributes: ['name']
-        //     }
-        // }]}
+        let pokesBD = await Pokemon.findAll( {include :Tipo }
         )
         if (pokesBD) {
             pokesBD = pokesBD.map(p => {
@@ -74,12 +69,13 @@ router.get('/pokemons', async (req, res, next) => {
                     name: p.name,
                     tipo: p.dataValues.tipos.map((p)=>p.dataValues.name),
                     image: p.image,
-                    creado: p.creadoByMe
+                    creado: p.creadoByMe,
+                    attack: p.attack
                 }
             })
         }
         // Opcion 1
-        const pokesApi = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=15")
+        const pokesApi = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=7")
         let datosPokesApi = pokesApi.data.results
         let pokeData = []
         for (p of datosPokesApi) {
@@ -89,7 +85,8 @@ router.get('/pokemons', async (req, res, next) => {
                 id:subReqPoke.data.id,
                 name: subReqPoke.data.name,
                 tipo: subReqPoke.data.types.map(e => e.type.name),
-                image: subReqPoke.data.sprites.front_default
+                image: subReqPoke.data.sprites.other.dream_world.front_default,
+                attack: subReqPoke.data.stats[1].base_stat,
             })
         }
         res.send(pokesBD.concat(pokeData))
@@ -106,9 +103,11 @@ router.get('/pokemons', async (req, res, next) => {
         // let result = await Promise.all(arregloFunciones.map(fn => fn()))
         // let response = result.map(p => {
         //     return {
+        //          id:p.data.id
         //         name: p.data.name,
         //         tipo: p.data.types.map(e => e.type.name),
-        //         image: p.data.sprites.front_default
+        //         image: p.data.sprites.other.dream_world.front_default
+                    // attack: p.data.stats[1].base_stat,
         //     }
         // })
         // res.send(pokesBD.concat(response))
@@ -151,7 +150,7 @@ router.get("/pokemons/:id", async (req, res, next) => {
                 speed: pokeApi.data.stats[5].base_stat,
                 weight: pokeApi.data.weight,
                 height: pokeApi.data.height,
-                image: pokeApi.data.sprites.front_default,
+                image: pokeApi.data.sprites.other.dream_world.front_default,
                 tipo: pokeApi.data.types.map(e => e.type.name),
             }
             return res.json(respuesta)
@@ -164,12 +163,7 @@ router.get("/pokemons/:id", async (req, res, next) => {
 
 router.post("/pokemons", async (req, res, next) => {
     const { name, hp, attack, defense, speed, weight, height, tipo, image } = req.body
-    // const existe = await Pokemon.findOne({
-    //     where: {
-    //         name : name,
-    //     }
-    // })
-    // if(existe) return res.json("creado")
+    
 
     try {
         const nuevoPoke = await Pokemon.create({
@@ -183,16 +177,6 @@ router.post("/pokemons", async (req, res, next) => {
             height,
             image
         })
-
-        // const tipoBD = await Tipo.findAll({
-        //     where: {
-        //         name : tipo
-        //     }
-        // })
-        // console.log(tipoBD)
-        // for(let i=0; i<tipoBD.length; i++){
-        //     nuevoPoke.addTipo(tipoBD[i].dataValues.id);
-        // }
 
         await nuevoPoke.addTipo(tipo)
         return res.send(nuevoPoke)

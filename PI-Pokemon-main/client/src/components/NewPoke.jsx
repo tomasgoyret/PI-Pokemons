@@ -26,7 +26,7 @@ export function NewPoke() {
     const handleChange = (event) => {
         setNewPoke({
             ...newPoke,
-            [event.target.name]: event.target.value
+            [event.target.name]: event.target.value.toLowerCase()
         })
     }
 
@@ -84,6 +84,7 @@ export function NewPoke() {
                 <input
                     name="hp"
                     type="number"
+                    min="0"
                     value={hp}
                     onChange={(event) => handleChange(event)}
                 >

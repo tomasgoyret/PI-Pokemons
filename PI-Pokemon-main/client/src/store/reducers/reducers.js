@@ -1,12 +1,11 @@
-import { GET_POKES, LOADING, GET_DETAILS, GET_POKE_BYNAME, GET_TYPES, CREATE_POKEMONS, FILTER_BY_TYPE, FILTER_BY_CREATED, ORDER_BY_NAME } from "../actions/actions";
+import { GET_POKES, LOADING, GET_DETAILS, GET_POKE_BYNAME, GET_TYPES, CREATE_POKEMONS, FILTER_BY_TYPE, FILTER_BY_CREATED, ORDER_BY_NAME, ORDER_BY_ATTACK } from "../actions/actions";
 
 const initialState = {
     pokemons : [],
     allPokemons: [],
     types: [],
     loading : false,
-    pokemonsDetails: [],
-    pokemonSearched:{}
+    pokemonsDetails: []
 }
 
 export default function rootReducers ( state = initialState, action) {
@@ -41,7 +40,7 @@ export default function rootReducers ( state = initialState, action) {
         case GET_POKE_BYNAME:
             return {
                 ...state,
-                pokemonSearched: action.payload,
+                pokemons: [action.payload],
                 loading: false
             }
         case FILTER_BY_TYPE:
@@ -79,6 +78,28 @@ export default function rootReducers ( state = initialState, action) {
                     return {
                         ...state,
                         pokemons: arrayOrdenado
+                    }
+        case ORDER_BY_ATTACK:
+                    let arrayOrdenadoAttack = action.payload === "Asc" ? state.pokemons.sort(function(a,b){
+                        if(a.attack > b.attack) {
+                            return 1
+                        }
+                        if(a.attack < b.attack) {
+                            return - 1
+                        }
+                        return 0;
+                    }) : state.pokemons.sort(function(a,b){
+                        if (a.attack < b.attack){
+                            return 1
+                        }
+                        if(a.attack > b.attack){
+                            return -1
+                        }
+                        return 0;
+                    })
+                    return {
+                        ...state,
+                        pokemons: arrayOrdenadoAttack
                     }
             default: return state      
     }

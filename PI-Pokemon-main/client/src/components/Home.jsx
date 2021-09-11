@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Search } from "./Search";
 import { useState } from "react";
 import { Paginacion } from "./Paginacion";
-import { filterByCreated, filterByType, getPokemons, getTypes, sortByName } from "../store/actions/actions";
+import { filterByCreated, filterByType, getPokemons, getTypes, sortByAttack, sortByName } from "../store/actions/actions";
 
 
 export function Pokemons() {
@@ -47,12 +47,22 @@ export function Pokemons() {
         dispatch(filterByCreated(e.target.value))
     }
 
+    const handleInicio = (e) =>{
+        dispatch(getPokemons())
+    }
+
+    const handleOrderByAttack =(e) =>{
+        dispatch(sortByAttack(e.target.value))
+        setCurrentPage(1)
+        setOrden(`Ordenado ${e.target.value}`)
+    }
+
 
     return <div>
 
         <div className="Top">
 
-            <button>
+            <button onClick={(e)=>{handleInicio(e)}}>
                 <Link to="/pokemons/"> Inicio</Link>
             </button>
 
@@ -63,7 +73,7 @@ export function Pokemons() {
             <select onChange={(e) => handleFilterbyType(e)}>
                 <option value="all">all</option>
                 {types.map(t => {
-                    return <option value={t}>{t}</option>
+                    return <option key={t} value={t}>{t}</option>
                 })}
             </select>
 
@@ -74,7 +84,8 @@ export function Pokemons() {
             </select>
             <div>
                 Orden por nombre : 
-                 <select onChange={(e)=>handleOrderByName(e)} > {/* onChange={(e)=>handleOrderByName(e)} */}
+                 <select onChange={(e)=>handleOrderByName(e)} >
+                    <option value=""></option>
                     <option value="Asc">Ascendente</option>
                     <option value="Desc">Descendente</option>
                 </select>
@@ -82,9 +93,9 @@ export function Pokemons() {
             </div>
             <div>
                 Orden por fuerza : 
-                <select>
-                    <option value="Asc">Más fuerte</option>
-                    <option value="Desc">Menos fuerte</option>
+                <select onChange={(e)=>handleOrderByAttack(e)}>
+                    <option value="Asc">Menos fuerte</option>
+                    <option value="Desc">Más fuerte</option>
                 </select>
 
             </div>

@@ -17,7 +17,8 @@ export function PokeCard({loading,pokemons}){
                 </p>
             <img src={pokemon.image} alt="imagen"/>
             {/* <p>{pokemon.tipo}</p> */}
-            <p>{pokemon.tipo.map((p)=> <li key={p}> {p} </li>)}</p>
+            <p>Tipos: {pokemon.tipo.map((p)=> <li key={p}> {p} </li>)}</p>
+            <p>Attack : {pokemon.attack}</p>
             </div> }
             
     )}

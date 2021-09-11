@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { getPokeByName } from "../store/actions/actions";
-import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
 
 export function Search() {
     const [busqueda, setBusqueda] = useState("")
     const dispatch = useDispatch()
-    const { pokemonSearched } = useSelector(state => state)
-   const history = useHistory();
 
 
     const handleChange = (event) => {
@@ -17,7 +14,6 @@ export function Search() {
     const handleSubmit = (event) => {
         event.preventDefault()
         dispatch((getPokeByName(busqueda)))
-        history.push(`/pokemons/${pokemonSearched.id}`)
     }
 
 
@@ -34,9 +30,9 @@ export function Search() {
                 </input>
 
                 <button onClick={(e)=>handleSubmit(e)} type="submit">BUSCAR</button>
-            <div>
+            {/* <div>
                 {pokemonSearched && <img src={`${pokemonSearched.image}`} alt="imagen"/>}
 
-            </div>
+            </div> */}
         </div>)
 }
