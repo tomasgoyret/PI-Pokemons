@@ -5,7 +5,7 @@ import Pikachu from './styles.css/media/ohNoPikachu.png'
 
 export function PokeCard({ loading, pokemons }) {
     if (loading) {
-        return <h2>Loading... </h2>
+        return <h2 className='loading'>Loading... </h2>
     }
     console.log(pokemons)
     if(!pokemons.length){
@@ -24,7 +24,7 @@ export function PokeCard({ loading, pokemons }) {
                     </Link>
                 </p>
                 <img className='imgPokeCard' src={pokemon.image} alt="imagen" />
-                <p>Tipos: {pokemon.tipo.map((p) => <li key={p}> {p} </li>)}</p>
+                <p className='tipos_pokeCard'>Tipos: {pokemon.tipo.map((p) => <li key={p}> {p} </li>)}</p>
                 <p className='attack'>Attack : {pokemon.attack}</p>
             </div>
         } 

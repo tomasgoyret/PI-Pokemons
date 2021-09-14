@@ -20,7 +20,7 @@ router.get('/pokemons', async (req, res, next) => {
         try {
             const pokeBD = await Pokemon.findOne({ where: { name: name }, include : Tipo })
             if (pokeBD != null) {
-                const { id, name, hp, attack, defense, speed, weight, height, image, tipo } = pokeBD
+                const { id, name, hp, attack, defense, speed, weight, height, image } = pokeBD
                 const respuesta = {
                     id,
                     name,
@@ -31,7 +31,7 @@ router.get('/pokemons', async (req, res, next) => {
                     weight,
                     height,
                     image,
-                    tipo
+                    tipo: pokeBD.dataValues.tipos.map((p)=>p.dataValues.name),
                 }
                 return res.json(respuesta)
             } else {

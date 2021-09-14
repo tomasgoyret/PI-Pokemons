@@ -59,15 +59,15 @@ export function Pokemons() {
     }
 
 
-    return <div>
+    return <div className='Home_Container'>
 
         <div className="Top">
             <div className="BotonIzquierda">
-            <button className="buttonInicio" onClick={(e)=>{handleInicio(e)}}>
+            <button className="buttonStyle" onClick={(e)=>{handleInicio(e)}}>
                 <Link to="/pokemons/"> Inicio</Link>
             </button>
 
-            <button>
+            <button className='buttonStyle'>
                 <Link to="/pokemons/new/Poke"> + Crear Pokemon</Link>
             </button>
             </div>

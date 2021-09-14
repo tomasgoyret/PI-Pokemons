@@ -1,32 +1,34 @@
-.Top{
-    display: inline-flex ;
-    background-color: orange;
-    align-items: center;
-}
-button{
-    margin: 20px 20px 20px 20px;
-}
-select{
-    margin: 20px 20px 20px 20px;
-}
-
-div button{
+.buttonStyle{
     background-color: black;
     border: none;
     color: white;
     padding: 8px 16px;
     text-align: center;
-    font-size: 16px;
+    font-size: 20px;
     opacity: 0.7;
     transition: 0.4s;
     cursor: pointer;
+    margin: 10px 10px;
+
 }
 
-div button:hover {
+.buttonStyle:hover {
     opacity: 1
 }
+.Top{
+    display: flex ;
+    justify-content: center;
+    background-color: rgba(110, 75, 10, 0.801);
+    align-items: center;
+}
 
-div button a{
+select{
+    margin: 20px 20px 20px 20px;
+}
+
+
+
+a{
     color: white;
     text-decoration: none;
     padding: 8px 16px;
@@ -36,11 +38,4 @@ div button a{
 img.pikachuDet{
     width: 150px; 
     height: 150px;
-}
-
-h2.mensajeErr{
-    display: flex;
-    align-items: center;
-    background-color: darkgoldenrod;
-    font-size: 70px;
 }

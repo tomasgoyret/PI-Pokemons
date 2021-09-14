@@ -1,6 +1,15 @@
+.LandingDiv{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 img.LogoLanding{
-    width: auto; 
-    height: auto;
+    width: 50%; 
+    height: 50%;
 }
 button.LandingButton {
     background-color: black;
@@ -13,7 +22,7 @@ button.LandingButton {
     transition: 0.4s;
     display: block;
     cursor: pointer;
-    margin: 80px 0px 0px 200px !important;
+    /* margin: 80px 0px 0px 200px !important; */
   }
 .LandingButton:hover {opacity: 1}
 
