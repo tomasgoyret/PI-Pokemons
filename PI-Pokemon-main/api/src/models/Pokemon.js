@@ -12,7 +12,6 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique:true,
     },
     creadoByMe: {
      type: DataTypes.BOOLEAN,

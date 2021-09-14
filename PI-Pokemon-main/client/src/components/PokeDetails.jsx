@@ -21,6 +21,11 @@ export function PokeDetails({id}){
             return (<p key={pokemonsDetails.id}> {p} </p>)} ) }
         </h3>
             
-         <h3>{pokemonsDetails.hp}</h3>
+         <h4>Vida : {pokemonsDetails.hp}</h4>
+         <h4>Attaque : {pokemonsDetails.attack}</h4>
+         <h4>Defensa : {pokemonsDetails.defense}</h4>
+         <h4>Velocidad : {pokemonsDetails.speed}</h4>
+         <h4>Altura : {pokemonsDetails.height}</h4>
+         <h4>Peso : {pokemonsDetails.weight}</h4>
          </div>
 }

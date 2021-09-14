@@ -1,3 +1,4 @@
+import './styles.css/Home.css';
 import { useEffect } from "react";
 import { PokeCard } from "./PokeCard";
 import { useDispatch, useSelector } from "react-redux";
@@ -61,14 +62,15 @@ export function Pokemons() {
     return <div>
 
         <div className="Top">
-
-            <button onClick={(e)=>{handleInicio(e)}}>
+            <div className="BotonIzquierda">
+            <button className="buttonInicio" onClick={(e)=>{handleInicio(e)}}>
                 <Link to="/pokemons/"> Inicio</Link>
             </button>
 
             <button>
-                <Link to="/pokemons/new/Poke"> Crear Pokemon</Link>
+                <Link to="/pokemons/new/Poke"> + Crear Pokemon</Link>
             </button>
+            </div>
 
             <select onChange={(e) => handleFilterbyType(e)}>
                 <option value="all">all</option>
@@ -86,14 +88,15 @@ export function Pokemons() {
                 Orden por nombre : 
                  <select onChange={(e)=>handleOrderByName(e)} >
                     <option value=""></option>
-                    <option value="Asc">Ascendente</option>
-                    <option value="Desc">Descendente</option>
+                    <option value="Asc">A-Z</option>
+                    <option value="Desc">Z-A</option>
                 </select>
 
             </div>
             <div>
                 Orden por fuerza : 
                 <select onChange={(e)=>handleOrderByAttack(e)}>
+                    <option value=""></option>
                     <option value="Asc">Menos fuerte</option>
                     <option value="Desc">Más fuerte</option>
                 </select>

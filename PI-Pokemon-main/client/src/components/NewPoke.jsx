@@ -4,6 +4,28 @@ import { useHistory } from "react-router";
 import { createPokemon } from "../store/actions/actions";
 import { Link } from "react-router-dom";
 
+function validate(newPoke){
+    let errors = {}
+    if(!newPoke.name){
+        errors.name = "Se requiere un nombre"
+    } else if (!newPoke.hp){
+        errors.hp = "Completar vida de Pokemon"
+    } else if (!newPoke.attack){
+        errors.attack = "Completar ataque de Pokemon"
+    } else if (!newPoke.defense){
+        errors.defense = "Completar defensa de Pokemon"
+    } else if (!newPoke.speed){
+        errors.speed = "Completar velocidad de Pokemon"
+    } else if (!newPoke.weight){
+        errors.weight = "Completar peso de Pokemon"
+    } else if (!newPoke.height){
+        errors.height = "Completar altura de Pokemon"
+    } else if (!newPoke.image){
+        errors.image = "Completar con una url de la imagen del Pokemons"
+    }
+    return errors
+}
+
 export function NewPoke() {
 
     const [newPoke, setNewPoke] = useState({
@@ -16,8 +38,9 @@ export function NewPoke() {
         height: "",
         tipo: [],
         image: ""
-
     })
+
+    const [errors,setErrors] = useState({})
     const dispatch = useDispatch()
     const { types } = useSelector(state => state)
     const history = useHistory()
@@ -28,39 +51,56 @@ export function NewPoke() {
             ...newPoke,
             [event.target.name]: event.target.value.toLowerCase()
         })
+        setErrors(validate({
+            ...newPoke,
+            [event.target.name]: event.target.value
+        }))
+        console.log(newPoke)
     }
 
     const handleSelect = (e) => {
-        setNewPoke({
-            ...newPoke,
-            tipo: [...newPoke.tipo, e.target.value]
-        })
+        if(!newPoke.tipo.includes(e.target.value)){
+            setNewPoke({
+                ...newPoke,
+                tipo: [...newPoke.tipo, e.target.value]
+            })
+            // setErrors(validate({
+            //     ...newPoke,
+            //     [e.target.name]: e.target.value
+            // }))
+        } else {
+            alert('Este tipo de pokemon ya está incluído')
+        }
     }
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        dispatch(createPokemon(newPoke))
-        alert("Pokemon creado")
-        setNewPoke({
-            name: "",
-            hp: "",
-            attack: "",
-            defense: "",
-            speed: "",
-            weight: "",
-            height: "",
-            tipo: [],
-            image: ""
-
-        })
-        history.push("/pokemons")
+        if(!Object.keys(errors).length && newPoke.tipo.length){
+            dispatch(createPokemon(newPoke))
+            alert("Pokemon creado")
+            setNewPoke({
+                name: "",
+                hp: "",
+                attack: "",
+                defense: "",
+                speed: "",
+                weight: "",
+                height: "",
+                tipo: [],
+                image: ""
+    
+            })
+            history.push("/pokemons")
+        } else {
+            alert("Por favor completa todos los campos")
+        }
     }
 
     // arm<ar el handle change con esta 
     // hanbdle submit con prevent Default
     // onSubmit={(e)=> handleSubmit(e)}
 
-    return <div>
+    return <div className='NewPokePage'>
         <h1> Nuevo Pokemon</h1>
 
         <button>
@@ -77,6 +117,7 @@ export function NewPoke() {
                     onChange={(event) => handleChange(event)}
                 >
                 </input>
+                {errors.name && (<p>{errors.name}</p>)}
             </div>
 
             <div>
@@ -89,6 +130,7 @@ export function NewPoke() {
                     onChange={(event) => handleChange(event)}
                 >
                 </input>
+                {errors.hp && (<p>{errors.hp}</p>)}
             </div>
 
             <div>
@@ -96,50 +138,60 @@ export function NewPoke() {
                 <input
                     name="attack"
                     type="number"
+                    min="0"
                     value={attack}
                     onChange={(event) => handleChange(event)}
                 >
                 </input>
+                {errors.attack && (<p>{errors.attack}</p>)}
             </div>
             <div>
                 <label>Defensa</label>
                 <input
                     name="defense"
                     type="number"
+                    min="0"
                     value={defense}
                     onChange={(event) => handleChange(event)}
                 >
                 </input>
+                {errors.defense && (<p>{errors.defense}</p>)}
             </div>
             <div>
                 <label>Velocidad</label>
                 <input
                     name="speed"
                     type="number"
+                    min="0"
                     value={speed}
                     onChange={(event) => handleChange(event)}
                 >
                 </input>
+                {errors.speed && (<p>{errors.speed}</p>)}
             </div>
             <div>
                 <label>Peso</label>
                 <input
                     name="weight"
                     type="number"
+                    min="0"
                     value={weight}
                     onChange={(event) => handleChange(event)}
                 >
                 </input>
+                {errors.weight && (<p>{errors.weight}</p>)}
             </div>
             <div>
                 <label>Altura</label>
                 <input
                     name="height"
                     type="number"
+                    min="0"
                     value={height}
                     onChange={(event) => handleChange(event)}
                 >
                 </input>
+                {errors.height && (<p>{errors.height}</p>)}
             </div>
             <div>
                 <label>Imagen</label>
@@ -150,6 +202,7 @@ export function NewPoke() {
                     onChange={(event) => handleChange(event)}
                 >
                 </input>
+                {errors.image && (<p>{errors.image}</p>)}
             </div>
             <div>
                 <label>Tipo</label>
@@ -159,9 +212,11 @@ export function NewPoke() {
                     })}
                 </select>
                 <ul> Tipos asignados : {newPoke.tipo.map(t => t + " , ")}</ul>
+                {/* {errors.tipo && (<p>{errors.tipo}</p>)} */}
 
             </div>
-            <button type="submit">CREAR POKEMON</button>
+            {/* {errors.message && (<p className='error'> {errors.message} </p>)} */}
+            <button type="submit"> + CREAR POKEMON</button>
 
         </form>
     </div>

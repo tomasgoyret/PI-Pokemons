@@ -57,6 +57,7 @@ export function getDetails(id){
 
 export function getPokeByName(name){
     return function(dispatch){
+        dispatch(loading())
         return axios.get(`http://localhost:3001/pokemons?name=${name}`)
             .then((response) =>{
                 dispatch({
