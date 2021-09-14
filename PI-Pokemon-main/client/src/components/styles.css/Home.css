@@ -32,3 +32,15 @@ div button a{
     padding: 8px 16px;
     font-size: 20px;
 }
+
+img.pikachuDet{
+    width: 150px; 
+    height: 150px;
+}
+
+h2.mensajeErr{
+    display: flex;
+    align-items: center;
+    background-color: darkgoldenrod;
+    font-size: 70px;
+}
