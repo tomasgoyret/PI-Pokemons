@@ -20,16 +20,16 @@ export function Search() {
 
     return (
         <div className="Buscador">  
-                <input
+                <input className='input_form'
                     autoComplete="off"
                     type="text"
                     name="name"
-                    placeholder="Encontrá pokemons"
+                    placeholder=" Encontrá pokemons "
                     onChange={(e) => handleChange(e)}
                 >
                 </input>
 
-                <button onClick={(e)=>handleSubmit(e)} type="submit">BUSCAR</button>
+                <button className='buttonStyle' onClick={(e)=>handleSubmit(e)} type="submit">BUSCAR</button>
             {/* <div>
                 {pokemonSearched && <img src={`${pokemonSearched.image}`} alt="imagen"/>}
 

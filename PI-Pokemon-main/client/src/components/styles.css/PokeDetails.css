@@ -3,7 +3,6 @@ div.Details_Component{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
 }
 
 
@@ -12,13 +11,14 @@ div.Details_Component{
     display: flex;
     justify-content: center;
     text-shadow: black 0.1em 0.1em 0.2em;
+    font-size: 50px;
 }
 div.Details_Card{
     background-color: rgb(115, 103, 70,0.7);
     border-radius: 15px;
     padding: 20px 20px 0px 20px;
     margin: 30px 0px 15px;
-    width: 50%;
+    width: 40%;
     
 }
 
@@ -28,19 +28,22 @@ img.img_Details{
     object-fit: contain;
 }
 
-p.tipo_Details{
-    border-radius: 8px;
-    margin: 0px 10px 0px 10px;
-    padding: 2px 8px 2px 8px;
-    display: inline;
+.tipo_Details_container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
+}
+
+.tipo_Details{
+    border-radius: 8px;
+    margin: 10px 10px;
+    padding: 2px 8px;
     background-color: rgb(15, 131, 166);
 }
 h4{
     display: flex;
     justify-content: center;
     margin: 0px 0px 0px 0px;
-}
-div button.button_Volver{
-    
 }

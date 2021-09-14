@@ -72,21 +72,21 @@ export function Pokemons() {
             </button>
             </div>
 
-            <select onChange={(e) => handleFilterbyType(e)}>
+            <select className='input_form' onChange={(e) => handleFilterbyType(e)}>
                 <option value="all">all</option>
                 {types.map(t => {
                     return <option key={t} value={t}>{t}</option>
                 })}
             </select>
 
-            <select onChange={(e) => handleFilterbyCreated(e)}>
+            <select className='input_form' onChange={(e) => handleFilterbyCreated(e)}>
                 <option value="all">all</option>
                 <option value="created">creado</option>
                 <option value="api">api</option>
             </select>
             <div>
                 Orden por nombre : 
-                 <select onChange={(e)=>handleOrderByName(e)} >
+                 <select  className='input_form' onChange={(e)=>handleOrderByName(e)} >
                     <option value=""></option>
                     <option value="Asc">A-Z</option>
                     <option value="Desc">Z-A</option>
@@ -95,7 +95,7 @@ export function Pokemons() {
             </div>
             <div>
                 Orden por fuerza : 
-                <select onChange={(e)=>handleOrderByAttack(e)}>
+                <select className='input_form' onChange={(e)=>handleOrderByAttack(e)}>
                     <option value=""></option>
                     <option value="Asc">Menos fuerte</option>
                     <option value="Desc">Más fuerte</option>

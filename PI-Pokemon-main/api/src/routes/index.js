@@ -49,7 +49,6 @@ router.get('/pokemons', async (req, res, next) => {
                         image: pokeApi.data.sprites.other.dream_world.front_default,
                         tipo: pokeApi.data.types.map(e => e.type.name),
                     }
-                    console.log(pokeApi)
                     return res.json(respuesta)
                 } catch (error) {
                      next(res.json({message:"Pokemon no encontrado"}))

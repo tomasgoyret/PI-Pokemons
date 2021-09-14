@@ -56,11 +56,10 @@ export function NewPoke() {
             ...newPoke,
             [event.target.name]: event.target.value
         }))
-        console.log(newPoke)
     }
 
     const handleSelect = (e) => {
-        if (!newPoke.tipo.includes(e.target.value)) {
+        if (!newPoke.tipo.includes(e.target.value) && newPoke.tipo.length < 4) {
             setNewPoke({
                 ...newPoke,
                 tipo: [...newPoke.tipo, e.target.value]
@@ -70,8 +69,15 @@ export function NewPoke() {
             //     [e.target.name]: e.target.value
             // }))
         } else {
-            alert('Este tipo de pokemon ya está incluído')
+            alert('Este tipo de pokemon ya está incluído o llegaste al màximo de cuatro tipos por Pokemon')
         }
+    }
+
+    const handelDeleteType = (el) =>{
+        setNewPoke({
+            ...newPoke,
+            tipo: newPoke.tipo.filter(t=> t !== el)
+        })
     }
 
     const handleSubmit = (event) => {
@@ -114,8 +120,8 @@ export function NewPoke() {
                     onChange={(event) => handleChange(event)}
                 >
                 </input>
-                {errors.name && (<p>{errors.name}</p>)}
             </div>
+                {errors.name && (<p className='requerimiento'>{errors.name}</p>)}
 
             <div className='item_form'>
                 <label className='label_form'>Vida</label>
@@ -127,8 +133,8 @@ export function NewPoke() {
                     onChange={(event) => handleChange(event)}
                 >
                 </input>
-                {errors.hp && (<p>{errors.hp}</p>)}
             </div>
+                {errors.hp && (<p  className='requerimiento' >{errors.hp}</p>)}
 
             <div className='item_form'>
                 <label className='label_form'>Ataque</label>
@@ -140,8 +146,8 @@ export function NewPoke() {
                     onChange={(event) => handleChange(event)}
                 >
                 </input>
-                {errors.attack && (<p>{errors.attack}</p>)}
             </div>
+                {errors.attack && (<p className='requerimiento'>{errors.attack}</p>)}
             <div className='item_form'>
                 <label className='label_form'>Defensa</label>
                 <input className='input_form'
@@ -152,8 +158,8 @@ export function NewPoke() {
                     onChange={(event) => handleChange(event)}
                 >
                 </input>
-                {errors.defense && (<p>{errors.defense}</p>)}
             </div>
+                {errors.defense && (<p className='requerimiento'>{errors.defense}</p>)}
             <div className='item_form'>
                 <label className='label_form'>Velocidad</label>
                 <input className='input_form'
@@ -164,8 +170,8 @@ export function NewPoke() {
                     onChange={(event) => handleChange(event)}
                 >
                 </input>
-                {errors.speed && (<p>{errors.speed}</p>)}
             </div>
+                {errors.speed && (<p className='requerimiento'>{errors.speed}</p>)}
             <div className='item_form'>
                 <label className='label_form'>Peso</label>
                 <input className='input_form'
@@ -176,8 +182,8 @@ export function NewPoke() {
                     onChange={(event) => handleChange(event)}
                 >
                 </input>
-                {errors.weight && (<p>{errors.weight}</p>)}
             </div>
+                {errors.weight && (<p className='requerimiento'>{errors.weight}</p>)}
             <div className='item_form'>
                 <label className='label_form'>Altura</label>
                 <input className='input_form'
@@ -188,8 +194,8 @@ export function NewPoke() {
                     onChange={(event) => handleChange(event)}
                 >
                 </input>
-                {errors.height && (<p>{errors.height}</p>)}
             </div>
+                {errors.height && (<p className='requerimiento'>{errors.height}</p>)}
             <div className='item_form'>
                 <label className='label_form'>Imagen</label>
                 <input className='input_form'
@@ -199,8 +205,8 @@ export function NewPoke() {
                     onChange={(event) => handleChange(event)}
                 >
                 </input>
-                {errors.image && (<p>{errors.image}</p>)}
             </div>
+                {errors.image && (<p className='requerimiento'>{errors.image}</p>)}
             <div className='item_form'>
                 <label className='label_form'>Tipo</label>
                 <select  className='input_form' onChange={(e) => handleSelect(e)}>
@@ -209,19 +215,25 @@ export function NewPoke() {
                     })}
                 </select>
             </div>
+
             <div className='item_form'>
-            <label className='label_form'> Tipos asignados : </label>
-            <ul className='tipos_form'>  {newPoke.tipo.map(t => <ul className='tipos_form_item' > {t + " , "}</ul>)}</ul>
-            </div>        
+            <label className='label_form'> Tipos: </label>
+            <ul className='tipos_form'>  {newPoke.tipo.map(t => 
+                <div className='tipos_form_item' > {t}
+                    <button className='buttonX' onClick={()=>handelDeleteType(t)}>X</button>
+                </div>
+            
+                )}
+            </ul>
 
+            </div>    
 
-
-        </form>
             <div className='item_form' >
                 <button className='buttonStyle'>
                     <Link to="/pokemons/"> VOLVER</Link>
                 </button>
                 <button className='buttonStyle' type="submit"> + CREAR POKEMON</button>
             </div>
+        </form>
     </div>
 }

@@ -21,7 +21,7 @@ export function PokeDetails({ id }) {
         <div className='Details_Card'>
             <h1 className="Titulo_Details">{pokemonsDetails.name}</h1>
             <h2> <img className="img_Details" src={pokemonsDetails.image} alt="imagen" /></h2>
-            <h3>{pokemonsDetails.tipo && pokemonsDetails.tipo.map((p) => {
+            <h3 className="tipo_Details_container">{pokemonsDetails.tipo && pokemonsDetails.tipo.map((p) => {
                 return (<p className="tipo_Details" key={pokemonsDetails.id}> {p} </p>)
             })}
             </h3>

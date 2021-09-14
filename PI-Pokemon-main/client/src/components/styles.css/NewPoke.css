@@ -1,8 +1,8 @@
 .NewPokePage{
     display: flex;
     flex-direction: column;
-    justify-content:center;
-    height: 100vh;
+    /* justify-content:center; */
+    height: 900px;
     width: 100%;
     align-items: center;
 }
@@ -14,13 +14,13 @@
     background-color: rgb(15, 131, 166,0.6);
     border-radius: 15px;
     padding: 40px 40px;
-    width: 800px;
+    width: 500px;
 }
 .Titulo_NuevoPoke{
     display: flex;
     justify-content: center;
     font-size: 'Mukta', sans-serif;
-    padding-bottom: 40px;
+    padding-bottom: 20px;
     text-shadow: black 0.1em 0.1em 0.2em;
 }
 
@@ -31,8 +31,16 @@
     align-items: center;
 }
 
+p.requerimiento{
+    display: flex;
+    flex-direction: row;
+    justify-content: center; 
+    align-items: center;
+}
+
 .tipos_form{
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
 }
 
@@ -49,9 +57,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 25px;
 }
 
 .input_form{
     border-radius: 5px;
     margin-right: 10px ;
+    font-family: 'Mukta', sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    box-shadow: none;
+    border-radius: 5px;
+    border: 3px solid orange;
+}
+
+.buttonX{
+    margin-left: 5px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color:grey;
+    border: 0;
 }
