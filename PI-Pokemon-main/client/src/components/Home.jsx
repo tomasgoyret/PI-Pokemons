@@ -14,7 +14,7 @@ export function Pokemons() {
     const { pokemons, loading, types } = useSelector(state => state)
     const [currentPage, setCurrentPage] = useState(1)
     const [pokesPorPage] = useState(3)
-    const[ordenado,setOrden] = useState("");
+    //const[ordenado,setOrden] = useState("");
     const dispatch = useDispatch();
 
 
@@ -39,7 +39,7 @@ export function Pokemons() {
         e.preventDefault()
         dispatch(sortByName(e.target.value))
         setCurrentPage(1)
-        setOrden(`Ordenado ${e.target.value}`)
+        //setOrden(`Ordenado ${e.target.value}`)
     }
     const handleFilterbyType = (e) => {
         dispatch(filterByType(e.target.value))
@@ -55,7 +55,7 @@ export function Pokemons() {
     const handleOrderByAttack =(e) =>{
         dispatch(sortByAttack(e.target.value))
         setCurrentPage(1)
-        setOrden(`Ordenado ${e.target.value}`)
+        //setOrden(`Ordenado ${e.target.value}`)
     }
 
 

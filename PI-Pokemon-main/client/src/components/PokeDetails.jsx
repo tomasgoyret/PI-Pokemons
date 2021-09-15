@@ -22,7 +22,7 @@ export function PokeDetails({ id }) {
             <h1 className="Titulo_Details">{pokemonsDetails.name}</h1>
             <h2> <img className="img_Details" src={pokemonsDetails.image} alt="imagen" /></h2>
             <h3 className="tipo_Details_container">{pokemonsDetails.tipo && pokemonsDetails.tipo.map((p) => {
-                return (<p className="tipo_Details" key={pokemonsDetails.id}> {p} </p>)
+                return (<p className="tipo_Details" key={p}> {p} </p>)
             })}
             </h3>
 

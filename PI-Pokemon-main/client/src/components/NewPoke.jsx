@@ -219,8 +219,8 @@ export function NewPoke() {
             <div className='item_form'>
             <label className='label_form'> Tipos: </label>
             <ul className='tipos_form'>  {newPoke.tipo.map(t => 
-                <div className='tipos_form_item' > {t}
-                    <button className='buttonX' onClick={()=>handelDeleteType(t)}>X</button>
+                <div key={t} className='tipos_form_item' > {t}
+                    <button className='buttonX' type='button' onClick={()=>handelDeleteType(t)}>X</button>
                 </div>
             
                 )}
