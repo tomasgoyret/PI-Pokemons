@@ -1,19 +1,19 @@
 import './App.css';
-import React, {useEffect} from 'react';
+//import React, {useEffect} from 'react';
 import RutaInicial from './components/LandingPage.jsx';
 import {Pokemons} from './components/Home.jsx';
 import {BrowserRouter , Route} from 'react-router-dom';
-import {useDispatch } from 'react-redux';
-import {getPokemons, getTypes} from './store/actions/actions';
+//import {useDispatch } from 'react-redux';
+//import {getPokemons, getTypes} from './store/actions/actions';
 import {PokeDetails} from './components/PokeDetails.jsx';
 import { NewPoke } from './components/NewPoke';
 
+// const dispatch = useDispatch();
+// useEffect(()=>{
+//   dispatch(getPokemons())
+//   dispatch(getTypes())
+// },[dispatch])
 function App() {
-  const dispatch = useDispatch();
-  useEffect(()=>{
-    dispatch(getPokemons())
-    dispatch(getTypes())
-  },[dispatch])
 
   return (
     <div className="App">

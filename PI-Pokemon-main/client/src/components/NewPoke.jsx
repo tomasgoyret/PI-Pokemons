@@ -211,7 +211,7 @@ export function NewPoke() {
                 <label className='label_form'>Tipo</label>
                 <select  className='input_form' onChange={(e) => handleSelect(e)}>
                     {types.map(t => {
-                        return <option value={t}>{t}</option>
+                        return <option key={t} value={t}>{t}</option>
                     })}
                 </select>
             </div>

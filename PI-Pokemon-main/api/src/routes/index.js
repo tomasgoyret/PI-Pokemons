@@ -33,7 +33,7 @@ router.get('/pokemons', async (req, res, next) => {
                     image,
                     tipo: pokeBD.dataValues.tipos.map((p)=>p.dataValues.name),
                 }
-                return res.json(respuesta)
+                return res.status(200).json(respuesta)
             } else {
                 try {
                     const pokeApi = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
@@ -49,7 +49,7 @@ router.get('/pokemons', async (req, res, next) => {
                         image: pokeApi.data.sprites.other.dream_world.front_default,
                         tipo: pokeApi.data.types.map(e => e.type.name),
                     }
-                    return res.json(respuesta)
+                    return res.status(200).json(respuesta)
                 } catch (error) {
                      next(res.json({message:"Pokemon no encontrado"}))
                 }
@@ -89,7 +89,7 @@ router.get('/pokemons', async (req, res, next) => {
                 attack: subReqPoke.data.stats[1].base_stat,
             })
         }
-        res.send(pokesBD.concat(pokeData))
+        res.status(200).send(pokesBD.concat(pokeData))
         // // Opcion 2
         // const pokesApi = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=10")
         // let datosPokesApi = pokesApi.data.results
