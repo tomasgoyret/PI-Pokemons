@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDetails } from "../store/actions/actions";
 import { Link } from "react-router-dom";
 import './styles.css/PokeDetails.css';
+import Gif from './styles.css/media/EXfY.gif';
 
 export function PokeDetails({ id }) {
     const dispatch = useDispatch()
@@ -13,7 +14,7 @@ export function PokeDetails({ id }) {
     const { pokemonsDetails, loading } = useSelector(state => state)
 
     if (loading) {
-        return <h2>Loading...</h2>
+        return <h2 className='loading'><img src={Gif} alt='cargando'></img> </h2>
     }
 
     return <div className='Details_Component'>

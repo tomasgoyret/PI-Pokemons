@@ -47,11 +47,9 @@ export function Pokemons() {
     const handleFilterbyCreated = (e) => {
         dispatch(filterByCreated(e.target.value))
     }
-
     const handleInicio = (e) =>{
         dispatch(getPokemons())
     }
-
     const handleOrderByAttack =(e) =>{
         dispatch(sortByAttack(e.target.value))
         setCurrentPage(1)
@@ -91,7 +89,6 @@ export function Pokemons() {
                     <option value="Asc">A-Z</option>
                     <option value="Desc">Z-A</option>
                 </select>
-
             </div>
             <div>
                 Orden por fuerza : 
@@ -102,7 +99,6 @@ export function Pokemons() {
                 </select>
 
             </div>
-
             <Search />
         </div>
 

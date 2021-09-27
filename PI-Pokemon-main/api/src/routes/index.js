@@ -51,7 +51,7 @@ router.get('/pokemons', async (req, res, next) => {
                     }
                     return res.status(200).json(respuesta)
                 } catch (error) {
-                     next(res.json({message:"Pokemon no encontrado"}))
+                     next(res.json({message:" Pokemon no encontrado"}))
                 }
             }
         } catch (error) {
