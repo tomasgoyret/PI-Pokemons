@@ -5,7 +5,7 @@ const axios = require('axios');
 const { Pokemon, Tipo } = require("../db");
 const { v4: uuidv4 } = require('uuid');
 
-
+//prueba push
 
 const router = Router();
 
@@ -75,7 +75,7 @@ router.get('/pokemons', async (req, res, next) => {
             })
         }
         // Opcion 1
-        const pokesApi = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=10")
+        const pokesApi = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=40")
         let datosPokesApi = pokesApi.data.results
         let pokeData = []
         for (p of datosPokesApi) {
@@ -91,7 +91,7 @@ router.get('/pokemons', async (req, res, next) => {
         }
         res.status(200).send(pokesBD.concat(pokeData))
         // // Opcion 2
-        // const pokesApi = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=10")
+        // const pokesApi = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=12")
         // let datosPokesApi = pokesApi.data.results
         // let pokeData = datosPokesApi.map(p => p.url)
         // let arregloFunciones = pokeData.map(url => {
@@ -103,14 +103,14 @@ router.get('/pokemons', async (req, res, next) => {
         // let result = await Promise.all(arregloFunciones.map(fn => fn()))
         // let response = result.map(p => {
         //     return {
-        //          id:p.data.id
+        //          id:p.data.id,
         //         name: p.data.name,
         //         tipo: p.data.types.map(e => e.type.name),
-        //         image: p.data.sprites.other.dream_world.front_default
-                    // attack: p.data.stats[1].base_stat,
+        //         image: p.data.sprites.other.dream_world.front_default,
+        //         attack: p.data.stats[1].base_stat,
         //     }
         // })
-        // res.send(pokesBD.concat(response))
+        // res.status(200).send(pokesBD.concat(response))
     } catch (error) {
         next("Api no responde")
     }
