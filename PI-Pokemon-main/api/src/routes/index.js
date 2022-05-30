@@ -75,7 +75,7 @@ router.get('/pokemons', async (req, res, next) => {
             })
         }
         // Opcion 1
-        const pokesApi = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=40")
+        const pokesApi = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=20")
         let datosPokesApi = pokesApi.data.results
         let pokeData = []
         for (p of datosPokesApi) {
