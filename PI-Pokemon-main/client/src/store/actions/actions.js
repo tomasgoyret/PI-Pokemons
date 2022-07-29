@@ -20,7 +20,7 @@ export function loading () {
 export function getPokemons() {
     return function(dispatch){
         dispatch(loading())
-        return axios.get("http://localhost:3001/pokemons")
+        return axios.get("http://localhost:3001/api/pokemons")
             .then((response)=>{
                 dispatch({
                     type : GET_POKES,
@@ -32,7 +32,7 @@ export function getPokemons() {
 
 export function getTypes() {
     return function(dispatch){
-        return axios.get("http://localhost:3001/types")
+        return axios.get("http://localhost:3001/api/types")
             .then((response)=>{
                 dispatch({
                     type : GET_TYPES,
@@ -45,7 +45,7 @@ export function getTypes() {
 export function getDetails(id){
     return function(dispatch){
         dispatch(loading())
-        return axios.get(`http://localhost:3001/pokemons/${id}`)
+        return axios.get(`http://localhost:3001/api/pokemons/${id}`)
             .then((response) =>{
                 dispatch({
                     type: GET_DETAILS,
@@ -58,7 +58,7 @@ export function getDetails(id){
 export function getPokeByName(name){
     return function(dispatch){
         dispatch(loading())
-        return axios.get(`http://localhost:3001/pokemons?name=${name}`)
+        return axios.get(`http://localhost:3001/api/pokemons?name=${name}`)
             .then((response) =>{
                 dispatch({
                     type: GET_POKE_BYNAME,
@@ -70,7 +70,7 @@ export function getPokeByName(name){
 
 export function createPokemon(payload){
     return function(dispatch){
-        return axios.post(`http://localhost:3001/pokemons`,payload)
+        return axios.post(`http://localhost:3001/api/pokemons`,payload)
             .then((response)=>{
                 return response;
             })
